@@ -18,7 +18,8 @@ export async function loader({ request }: LoaderArgs) {
   }
   return typedjson(
     { greeting: "hello", today: new Date() },
-    { headers: { "x-typedjson": "true" } }
+    // headers work too! just like 'json' and is optional
+    { headers: { "set-cookie": "headerswork=true" } }
   );
 }
 
