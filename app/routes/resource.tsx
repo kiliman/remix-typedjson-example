@@ -1,9 +1,8 @@
-import { type ActionArgs } from "@remix-run/node";
-import { typedjson } from "remix-typedjson";
+import { json, type ActionArgs } from "~/remix";
 export type ActionData = typeof action;
 
 export const action = async ({ request }: ActionArgs) => {
-  return typedjson({
+  return json({
     greeting: "hello from resource route",
     nested: {
       date: new Date(),

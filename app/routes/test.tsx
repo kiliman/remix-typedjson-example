@@ -1,14 +1,13 @@
-import type { LoaderArgs } from "@remix-run/node";
 import {
+  Form,
+  json,
   redirect,
-  typedjson,
-  useTypedActionData,
-  useTypedFetcher,
-  useTypedLoaderData,
-} from "remix-typedjson";
-
-import { type ActionArgs } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+  useActionData,
+  useFetcher,
+  useLoaderData,
+  type ActionArgs,
+  type LoaderArgs,
+} from "~/remix";
 import { type ActionData as FetcherDataType } from "./resource";
 
 export async function loader({ request }: LoaderArgs) {
@@ -16,7 +15,7 @@ export async function loader({ request }: LoaderArgs) {
   if (url.searchParams.has("redirect")) {
     return redirect("/", { headers: { "set-cookie": "typedjson=true" } });
   }
-  return typedjson(
+  return json(
     { greeting: "hello", today: new Date() },
     // headers work too! just like 'json' and is optional
     { headers: { "set-cookie": "headerswork=true" } }
@@ -24,7 +23,7 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export const action = async ({ request }: ActionArgs) => {
-  return typedjson([
+  return json([
     {
       greeting: "hello",
       date: new Date(),
@@ -39,9 +38,9 @@ export const action = async ({ request }: ActionArgs) => {
 };
 
 export default function Index() {
-  const loaderData = useTypedLoaderData<typeof loader>();
-  const actionData = useTypedActionData<typeof action>();
-  const fetcher = useTypedFetcher<FetcherDataType>();
+  const loaderData = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  const fetcher = useFetcher<FetcherDataType>();
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
