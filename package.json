@@ -2,6 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
+    "postinstall": "rmx gen-remix --config ./config/gen-remix.config.json",
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build"
@@ -12,7 +13,7 @@
     "@remix-run/serve": "^1.6.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix-typedjson": "^0.0.5"
+    "remix-typedjson": "^0.0.6"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.6.5",
@@ -20,6 +21,7 @@
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
     "eslint": "^8.20.0",
+    "rmx-cli": "^0.3.1",
     "typescript": "^4.7.4"
   },
   "engines": {
