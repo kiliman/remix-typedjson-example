@@ -7,32 +7,32 @@ import {
   useLoaderData,
   type ActionArgs,
   type LoaderArgs,
-} from "~/remix";
-import { type ActionData as FetcherDataType } from "./resource";
+} from '~/remix';
+import { type ActionData as FetcherDataType } from './resource';
 
 export async function loader({ request }: LoaderArgs) {
   var url = new URL(request.url);
-  if (url.searchParams.has("redirect")) {
-    return redirect("/", { headers: { "set-cookie": "typedjson=true" } });
+  if (url.searchParams.has('redirect')) {
+    return redirect('/', { headers: { 'set-cookie': 'typedjson=true' } });
   }
   return json(
-    { greeting: "hello", today: new Date() },
+    { greeting: 'hello', today: new Date() },
     // headers work too! just like 'json' and is optional
-    { headers: { "set-cookie": "headerswork=true" } }
+    { headers: { 'set-cookie': 'headerswork=true' } }
   );
 }
 
 export const action = async ({ request }: ActionArgs) => {
   return json([
     {
-      greeting: "hello",
+      greeting: 'hello',
       date: new Date(),
-      big: BigInt("1234567890123456789012345678901234567890"),
+      big: BigInt('1234567890123456789012345678901234567890'),
     },
     {
-      greeting: "world",
+      greeting: 'world',
       date: new Date(),
-      big: BigInt("234567890234567890123456789012345678901"),
+      big: BigInt('234567890234567890123456789012345678901'),
     },
   ]);
 };
@@ -43,12 +43,10 @@ export default function Index() {
   const fetcher = useFetcher<FetcherDataType>();
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       <h1>Remix TypedJSON</h1>
       <p>
-        <a href="https://github.com/kiliman/remix-typedjson-example">
-          GitHub Example
-        </a>
+        <a href="https://github.com/kiliman/remix-typedjson-example">GitHub Example</a>
       </p>
       <p>
         <a href="https://github.com/kiliman/remix-typedjson">
@@ -56,14 +54,14 @@ export default function Index() {
         </a>
       </p>
       <p>
-        Open DevTools and click on the form buttons to see how{" "}
-        <code>remix-typedjson</code> serializes the data. Note how objects and
-        arrays are NOT double-JSON stringified.
+        Open DevTools and click on the form buttons to see how <code>remix-typedjson</code> serializes the data. Note
+        how objects and arrays are NOT double-JSON stringified.
       </p>
 
       <h2>Loader Data</h2>
       <pre>{JSON.stringify(loaderData, null, 2)}</pre>
       <p>Today is {loaderData.today.toLocaleDateString()}</p>
+      <p>Today's Type {Object.prototype.toString.call(loaderData.today)}</p>
 
       <h2>Action Data</h2>
       <Form method="post" replace>
